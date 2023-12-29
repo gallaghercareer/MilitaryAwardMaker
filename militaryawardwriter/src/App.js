@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import Register from './Components/Register';
 import './App.css';
-import Login from './Components/Login';
-import EmailValidation from './Components/confirmRegistration';
 import { Account, AccountContext } from './Components/Account';
-import Status from './Components/Status';
-import Settings from './Components/Settings';
 import LoginHostedUI from './Components/LoginHostedUI';
-import LogoutUser from './Components/LogoutUser';
 import CallLambda from './Components/CallLambda'; 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import WriteAward from './Components/WriteAward';
 function App() {
  
   return (
-    
     <Account>
-      <Status />
-    <Login />
-    <br></br>
-    <Settings/>
-    <br></br>
-    <LoginHostedUI />
-    <br></br>
-    <LogoutUser/>
-    <br></br>
-    <CallLambda/>
+
+    <Router>
+    <Navbar/>
+      <Routes>
+        <Route  exact path="/" element={<LoginHostedUI />} />
+        <Route path="/formfill" element={<LoginHostedUI />} />
+        <Route path="/writeaward" element={<WriteAward/>} />
+
+      </Routes>
+  </Router>
     </Account>
   );
 }

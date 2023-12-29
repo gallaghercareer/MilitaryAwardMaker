@@ -37,6 +37,7 @@ const Login = () => {
             console.log('newPasswordRequired:', data);
         }
     });
+    
     };
     return (
         <div>

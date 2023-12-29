@@ -8,12 +8,18 @@ const CallLambda = () => {
         event.preventDefault();
         const url = 'https://csitg9jz5c.execute-api.us-east-2.amazonaws.com/beta/sendMessage_AAM';   
         const authorizationToken = Cookies.get('jwt');
-        const thread_Id = Cookies.get("thread_Id") || '';
+        let thread_Id = Cookies.get("thread_Id")
+        
+        if (!thread_Id || thread_Id === 'undefined'){
+            thread_Id = ''
+        }
+        console.log(thread_Id)
         
         const headers = {
             'Authorization': `Bearer ${authorizationToken}`,
             'Content-Type': 'application/json',          
         };
+        
         try {
         const messageBody = JSON.stringify({
             thread_id: thread_Id,
@@ -31,7 +37,7 @@ const CallLambda = () => {
             body:  requestBody
             
         });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

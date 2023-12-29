@@ -40,10 +40,12 @@ const LoginHostedUI = () => {
 
     useEffect(() => {
         handleCallback();
+        console.log("pageLoaded");
     }, []);
 
     return (
         <div>
+            say
             <button onClick={redirectToCognitoHostedUI}>Go to Hosted UI Cognito</button>
             {tokens.idToken && <div>Okay</div>}
         </div>
