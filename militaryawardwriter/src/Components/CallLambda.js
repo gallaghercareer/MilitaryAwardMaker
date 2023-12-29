@@ -12,24 +12,25 @@ const CallLambda = () => {
         
         const headers = {
             'Authorization': `Bearer ${authorizationToken}`,
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
+            'Content-Type': 'application/json',          
         };
-     
-
         try {
-            const requestBody = {
-                body: JSON.stringify({
-                    thread_id: thread_Id,
-                    user_message: user_message
-                })
-            };
-            const response = await fetch(url, {
-                method: 'POST', // or 'POST', 'PUT', 'DELETE', etc., depending on your needs
-                headers: headers,
-                body:  requestBody
-              
-            });
+        const messageBody = JSON.stringify({
+            thread_id: thread_Id,
+            user_message: user_message
+        });
+
+        const requestBody = JSON.stringify({
+            body: messageBody
+        });
+
+        
+        const response = await fetch(url, {
+            method: 'POST', // or 'POST', 'PUT', 'DELETE', etc., depending on your needs
+            headers: headers,
+            body:  requestBody
+            
+        });
     
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -38,7 +39,7 @@ const CallLambda = () => {
             let data = await response.json(); // or response.text() if the response is not in JSON format
             data = JSON.stringify(data);
             console.log("lambda response:" + data)
-            //set thread_Id in cookies here
+       
             return data;
         } catch (error) {
             console.error('Error calling API Gateway:', error);
