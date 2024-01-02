@@ -1,8 +1,9 @@
 import React, { useContext,useEffect, useState } from 'react';
-import {AccountContext} from './Account';
+import {AccountContext} from '../Context/Account';
 import Cookies from 'js-cookie';
 
 const LoginHostedUI = () => {
+
 
     const [tokens, setTokens] = useState({ idToken: '', accessToken: '' });
 
@@ -11,7 +12,7 @@ const LoginHostedUI = () => {
         const appClientId = "2ftpqjvak8l9j8bep63udhr15u";
         const callbackUrl = encodeURIComponent("http://localhost:3000");
         const responseType = "token"; // or "code" for Authorization Code grant
-        const scopes = "openid email phone"; // Add other scopes as needed
+        const scopes = ""; // Add other scopes as needed
 
         const loginUrl = `${domainUrl}/oauth2/authorize?response_type=${responseType}&client_id=${appClientId}&redirect_uri=${callbackUrl}&scope=${encodeURIComponent(scopes)}`;
 
@@ -19,29 +20,7 @@ const LoginHostedUI = () => {
      
     };
 
-    const handleCallback = () => {
-        const urlParams = new URLSearchParams(window.location.hash.substring(1));
-        const idToken = urlParams.get('id_token');
-        const accessToken = urlParams.get('access_token');
-        
-        if(Cookies.get('jwt') == null){
-            const jwt = idToken
-            Cookies.set('jwt', jwt, { expires: 5, path: '/' });
-            console.log("jwt is:" + jwt);
-
-        }
-    
-        if (idToken && accessToken) {
-            setTokens({ idToken, accessToken });
-            // You can now use these tokens as needed in your application
-            console.log('Tokens received:', { idToken, accessToken });
-        }
-    };
-
-    useEffect(() => {
-        handleCallback();
-        console.log("pageLoaded");
-    }, []);
+   
 
     return (
         <div>

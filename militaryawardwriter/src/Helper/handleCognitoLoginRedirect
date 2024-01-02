@@ -1,0 +1,29 @@
+import React from "react";
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
+ 
+
+function parseIdToken(idToken) {
+    const decodedToken = jwt(idToken); // Use a library like jwt-decode to decode the JWT
+    console.log("The decoded token is:" + decodedToken)
+    return {
+      username: decodedToken['cognito:username'],
+      email: decodedToken.email,
+      // Extract other attributes as needed
+    };
+    
+  }
+  
+const handleCognitoLoginRedirect = () => {
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const idToken = urlParams.get('id_token');
+       
+        if(Cookies.get('jwt') == null || "undefined"){
+            const jwt = idToken
+            Cookies.set('jwt', jwt, { expires: 5, path: '/' });
+
+            console.log("jwt is:" + jwt);
+        }
+    };
+
+    export default new handleCognitoLoginRedirect();

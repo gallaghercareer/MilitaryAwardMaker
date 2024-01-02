@@ -1,6 +1,6 @@
 import React, {useEffect, useState,useContext} from 'react';
-import Authorizer from './Authorizer';
-import { AccountContext } from './Account';
+import Authorizer from '../Context/Authorizer';
+import { AccountContext } from '../Components/Account';
 
 const Settings = () => {
     const {getSession} = useContext(AccountContext);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
-import CallApiGateway from '../Helper/CallApiGateway';
+import CallApiGateway from '../Services/CallApiGateway';
 import Cookies from 'js-cookie'; // Don't forget to import Cookies
 
 const WriteAward = () => {
@@ -47,12 +47,21 @@ const WriteAward = () => {
     // Logic to attach a file
     console.log("Attach file clicked");
   };
-
   return (
-    <div style={{ padding: '20px' }}>
-      <div id="messageHistory" style={{ height: '300px', overflowY: 'scroll', marginBottom: '10px', border: '1px solid #ccc', padding: '10px' }}>
-      {messageHistory.map((msg, index) => (
-          <div key={index}>
+    <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div id="messageHistory" style={{ 
+          maxWidth: '33%', 
+          height: '300px', 
+          marginBottom: '10px', 
+        
+          padding: '10px', 
+          overflowY: 'auto', 
+          display: 'flex', 
+          flexDirection: 'column',
+          alignItems: 'center'
+      }}>
+        {messageHistory.map((msg, index) => (
+          <div key={index} style={{ width: '100%' }}>
             {msg.sender === 'assistant' ? (
               <Typewriter
                 options={{
@@ -69,14 +78,14 @@ const WriteAward = () => {
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <a href="#" onClick={attachFile} style={{ marginRight: '10px' }}>Attach File</a>
         <input
           type="text"
           value={message}
           onChange={e => setMessage(e.target.value)}
           onKeyPress={e => e.key === 'Enter' && sendMessageToLambda()}
-          style={{ flexGrow: 1, marginRight: '10px' }}
+          style={{ flexGrow: 1, marginRight: '10px', width: '33%' }}
         />
         <button onClick={sendMessageToLambda}>Send</button>
       </div>

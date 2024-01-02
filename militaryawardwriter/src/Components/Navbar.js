@@ -1,21 +1,14 @@
-import React from 'react';
-import { AppBar, Toolbar, Button, Stack, Box, ButtonGroup } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import { Link } from 'react-router-dom';
+import React, {useState,useEffect,useContext } from 'react';
+import { AppBar, Toolbar, Button, Stack, Box, ButtonGroup, Grid,MenuItem, Menu} from '@mui/material';
 import Cookies from 'js-cookie';
-
+import Typography from '@mui/material/Typography';
+import {AccountContext} from '../Context/Account';
+import MenuIcon from '@mui/icons-material/Menu';
 function Navbar(props) {
 
-    const redirectToLogoutCognitoHostedUI = () => {
-            Cookies.remove('jwt')
-            Cookies.remove('thread_Id')
-            const domainUrl = "https://militaryawardwriter.auth.us-east-2.amazoncognito.com";
-            const clientId = "2ftpqjvak8l9j8bep63udhr15u";
-            const callbackUrl = "http://localhost:3000";
-            const logoutUrl = `${domainUrl}/logout?client_id=${clientId}&logout_uri=${callbackUrl}&redirect_uri=${callbackUrl}&response_type=token`;
-            window.location.href = logoutUrl;
-    
-    };  
+  const {logout} = useContext(AccountContext);
+  const {login} = useContext(AccountContext);
+
   const linkStyle = {
     color: 'white',
     textDecoration: 'none',
@@ -23,35 +16,43 @@ function Navbar(props) {
     fontWeight: 500
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+};
+
+  const handleClose = () => {
+    setAnchorEl(null);
+};
   return (
-    <AppBar position="sticky">
-      <Toolbar>
-        <Button component={Link} to="/" style={linkStyle}>
-          <HomeIcon sx={{ fontSize: 40, mr: 2 }} />
-        </Button>
-        <Button component={Link} to="/" style={linkStyle}>
-          Home
-        </Button>
+    <AppBar position="static" elevation={0} style={{ backgroundColor: 'white' }}>
+    <Toolbar>
+      <Grid container alignItems="center">
+        <Grid item xs={false} sm={2} md={2} lg={2} /> {/* Empty space for columns 1-4 */}
+        <Grid item xs={12} sm={4} md={4} lg={4}>
+          <Typography  style={{ color: 'black', textAlign: 'left' }}>Awards</Typography>
+        </Grid>
+        <Grid item xs={false} sm={4} md={4} lg={4} style={{ textAlign: 'right' }}>
+        <Button onClick={handleClick}><MenuIcon style={{color: "black"}}/></Button>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleClose}>Option 1</MenuItem>
+                            <MenuItem onClick={handleClose}>Option 2</MenuItem>
+                            <MenuItem onClick={handleClose}>Option 3</MenuItem>
+                            </Menu>
+          <Button onClick={login} style={{ color: 'black' }}>Sign In</Button>
 
-        <Box width="100%" sx={{}}>
-          <Stack gap={5} flexDirection="row" justifyContent="flex-end">
-            <ButtonGroup sx={{ display: 'flex', alignItems: 'center' }}>
-              <Button
-               component={Link} to="/writeaward" style={linkStyle}
-                sx={{ color: 'white', fontSize: 25 }}
-              >
-                Write
-              </Button>
-
-              <Button onClick={redirectToLogoutCognitoHostedUI} to="/#about" style={linkStyle}>
-                Logout
-              </Button>
-            </ButtonGroup>
-          </Stack>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-}
-
+        </Grid>
+        <Grid item xs={false} sm={2} md={2} lg={2}></Grid> {/* Empty space for columns 8-12 */}
+      </Grid>
+    </Toolbar>
+  </AppBar>
+      )
+    }
+  
 export default Navbar;

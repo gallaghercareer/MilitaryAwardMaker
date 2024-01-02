@@ -1,7 +1,10 @@
 import React, {useState,useEffect,useContext} from 'react'
-import {AccountContext} from './Account'
+import {AccountContext} from '../Components/Account'
+
+
 
 const Authorizer = () => {
+
     const [jwtToken, setjwttoken] = useState('')
     const [url, setUrl] = useState('')
     const [response, setResponse] = useState('')
@@ -13,6 +16,34 @@ const Authorizer = () => {
         setUrl('https://csitg9jz5c.execute-api.us-east-2.amazonaws.com/default/sendMessage_AAM');
     }, []);
   
+    const redirectToLogoutCognitoHostedUI = () => {
+        Cookies.remove('jwt')
+        Cookies.remove('thread_Id')
+        const domainUrl = "https://militaryawardwriter.auth.us-east-2.amazoncognito.com";
+        const clientId = "2ftpqjvak8l9j8bep63udhr15u";
+        const callbackUrl = "http://localhost:3000";
+        const logoutUrl = `${domainUrl}/logout?client_id=${clientId}&logout_uri=${callbackUrl}&redirect_uri=${callbackUrl}&response_type=token`;
+        window.location.href = logoutUrl;
+    
+    }; 
+    
+    const handleCallback = () => {
+    const urlParams = new URLSearchParams(window.location.hash.substring(1));
+    const idToken = urlParams.get('id_token');
+    const accessToken = urlParams.get('access_token');
+    
+    if(Cookies.get('jwt') == null){
+      const jwt = idToken
+      Cookies.set('jwt', jwt, { expires: 5, path: '/' });
+      console.log("jwt is:" + jwt);
+      
+    }
+    
+    };
+    /*
+    useEffect(() => {
+    handleCallback();
+    }, []);*/
     
     const requestOptions = {
         method: 'POST',
