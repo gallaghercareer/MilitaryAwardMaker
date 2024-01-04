@@ -2,7 +2,7 @@ import React from "react";
 import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
  
-
+//this files functionality is having problems when I import it into the Coastguard pages
 function parseIdToken(idToken) {
     const decodedToken = jwt(idToken); // Use a library like jwt-decode to decode the JWT
     console.log("The decoded token is:" + decodedToken)

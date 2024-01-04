@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useNavigate } from 'react-router-dom';
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,6 +31,11 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function NomineeForm() {
+
+    const navigate = useNavigate()
+    const navigateToAwardWriter = () =>{
+        navigate('/chattoopenai')
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -135,6 +140,7 @@ export default function NomineeForm() {
                         
                      
                         <Button
+                            onClick={navigateToAwardWriter}
                             type="submit"
                             fullWidth
                             variant="contained"

@@ -4,11 +4,19 @@ import Cookies from 'js-cookie';
 import Typography from '@mui/material/Typography';
 import {AccountContext} from '../Context/Account';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
+import '../Css/Navbar.css';
 function Navbar(props) {
 
   const {logout} = useContext(AccountContext);
   const {login} = useContext(AccountContext);
+  const {email} = useContext(AccountContext);
+  
+  const navigate = useNavigate()
 
+  const navigateToCoastGuardHomepage = () =>{
+    navigate('/coastguard')
+}
   const linkStyle = {
     color: 'white',
     textDecoration: 'none',
@@ -32,7 +40,7 @@ function Navbar(props) {
       <Grid container alignItems="center">
         <Grid item xs={false} sm={2} md={2} lg={2} /> {/* Empty space for columns 1-4 */}
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <Typography  style={{ color: 'black', textAlign: 'left' }}>Awards</Typography>
+          <Typography onClick={navigateToCoastGuardHomepage} className="awards-hover" style={{ color: 'black', textAlign: 'left' }}>Awards</Typography>
         </Grid>
         <Grid item xs={false} sm={4} md={4} lg={4} style={{ textAlign: 'right' }}>
         <Button onClick={handleClick}><MenuIcon style={{color: "black"}}/></Button>
@@ -45,7 +53,7 @@ function Navbar(props) {
                             <MenuItem onClick={handleClose}>Option 2</MenuItem>
                             <MenuItem onClick={handleClose}>Option 3</MenuItem>
                             </Menu>
-          <Button onClick={login} style={{ color: 'black' }}>Sign In</Button>
+         {email ? <Button onClick={logout} style={{ color: 'black' }}>Sign Out</Button> : <Button onClick={login} style={{ color: 'black' }}>Sign In</Button>}
 
         </Grid>
         <Grid item xs={false} sm={2} md={2} lg={2}></Grid> {/* Empty space for columns 8-12 */}

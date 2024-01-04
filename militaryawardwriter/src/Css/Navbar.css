@@ -1,0 +1,6 @@
+.awards-hover:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    text-decoration-thickness: 1.5px; /* Adjust the thickness as needed */
+    text-underline-offset: 2px;
+}
