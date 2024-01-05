@@ -10,7 +10,42 @@ import { grey } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person'; // Example icon for user
 import AssistantIcon from '@mui/icons-material/Assistant';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import AssistantIcon2 from '../Css/penIcon.png';
 
+const AssistIcon = () => (
+  <img 
+    src={AssistantIcon2}
+    alt="User Icon" 
+    style={{ 
+      width: '32px', 
+      height: '32px', 
+      borderRadius: '50%', // This line makes the image round
+     position: 'absolute', 
+     left: '-30px', 
+     top: '-25px'
+    }} 
+  />
+);
+// Keyframes for the blinking effect
+const keyframesBlinking = `
+  @keyframes blinking {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+`;  
+// BlinkingDot component
+const BlinkingDot = () => (
+  <>
+    <style>{keyframesBlinking}</style>
+    <FiberManualRecordIcon sx={{
+      fontSize: '10px', // Adjust the size as needed
+      color: 'black', // Adjust the color as needed
+      animation: 'blinking 1s infinite' // Apply the blinking animation
+    }} />
+  </>
+);
 // Create a custom theme with the color override
 const customTheme = createTheme({
   palette: {
@@ -111,7 +146,7 @@ const MessageBox = () => {
     };
     return (
       <>
-      <Grid style={{ height: '100vh'}}>
+      <Grid style={{ height: '90vh', marginTop:'10vh'}}>
         <Grid container sx={{overflowY:'scroll',  maxHeight:'70%' }}>
 
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
@@ -128,14 +163,14 @@ const MessageBox = () => {
                         <PersonIcon style={{ position: 'absolute', left: '-25px', top: '-20px' }} />
                         <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>User</div></>) : (
                         <>
-                          <AssistantIcon style={{ position: 'absolute', left: '-25px', top: '-20px' }} />
+                          <AssistIcon />
                           <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>Assistant</div>
                         </>
                       )}
             {msg.sender === 'assistant' ? (
            
        <div>    {msg.isLoading && (<div style={{ marginTop: '10px' }}>
-               <CircularProgress /> {/* Or any other loading indicator */}
+                 {<BlinkingDot />}{/* Or any other loading indicator */}
              </div>
              )}{msg.text} <div ref={messagesEndRef} /></div>
       ) : (
@@ -169,12 +204,12 @@ const MessageBox = () => {
                 color="primary"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && fakeAssistantResponse()}
+                onKeyPress={(e) => e.key === 'Enter' && sendMessageToLambda()}
                 InputProps={{
 
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton onClick={fakeAssistantResponse}>
+                      <IconButton onClick={sendMessageToLambda}>
                         <ArrowCircleUpIcon fontSize="large" sx={{
                           '&:hover': {
                             color: 'black', // Change color on hover
