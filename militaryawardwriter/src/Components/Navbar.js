@@ -35,7 +35,7 @@ function Navbar(props) {
     setAnchorEl(null);
 };
   return (
-    <AppBar position="static" elevation={0} style={{ backgroundColor: 'white' }}>
+    <AppBar position="sticky" elevation={0} style={{ backgroundColor: 'white' }}>
     <Toolbar>
       <Grid container alignItems="center">
         <Grid item xs={false} sm={2} md={2} lg={2} /> {/* Empty space for columns 1-4 */}

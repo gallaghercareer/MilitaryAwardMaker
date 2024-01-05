@@ -112,7 +112,7 @@ const MessageBox = () => {
     return (
       <>
       <Grid style={{ height: '100vh'}}>
-        <Grid container sx={{overflowY:'clip',  maxHeight:'70%', }}>
+        <Grid container sx={{overflowY:'scroll',  maxHeight:'70%' }}>
 
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
 
