@@ -28,17 +28,6 @@ const MessageBox = () => {
   const [message, setMessage] = useState('');
   const [newMessage, setNewMessage] = useState('');
 
-  useEffect(() => {
-    if (newMessage && newMessage.sender === 'assistant') {
-      // Use a timeout to simulate typewriting delay
-      const timeoutId = setTimeout(() => {
-        addMessageToHistory(newMessage);
-        setNewMessage('');
-      }, 1000 + newMessage.text.length * 30); // Adjust timing as needed
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [newMessage]);
 
   const addMessageToHistory = (msg) => {
     setMessageHistory((prevHistory) => [...prevHistory, msg]);
@@ -49,16 +38,14 @@ const MessageBox = () => {
     const userMessage = { text: message, sender: 'user' };
     addMessageToHistory(userMessage)
     // Add a placeholder for the assistant's response
-    const placeholderResponse = { text: '', sender: 'assistant', isPlaceholder: true };
+    const placeholderResponse = { text: '', sender: 'assistant', isPlaceholder: true, isLoading: true };
     addMessageToHistory(placeholderResponse);
     // Capture the message before clearing it
     const messageToSend = message;
     setMessage(''); // Clear the message input
-    setIsLoading(true);
    
       const response = await CallApiGateway(messageToSend);
       if (response) {
-        setIsLoading(false);
         // Parse the JSON string in the 'body' to get the actual response object
         const responseBody = JSON.parse(response.body);
 
@@ -68,7 +55,7 @@ const MessageBox = () => {
         updateAssistantResponse(assistantResponse);
         let threadId = responseBody.thread_id;
         // Add the assistant's response to the history with a typewriter effect
-        setNewMessage({ text: assistantResponse, sender: 'assistant' });
+        setNewMessage({ text: assistantResponse, sender: 'assistant',isLoading: false });
         Cookies.set('thread_Id', threadId);
         // Clear the message input after sending
       }
@@ -88,7 +75,7 @@ const MessageBox = () => {
     };
     return (
       <>
-        <Grid container>
+        <Grid container style={{overflowY: 'auto'}}>
 
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
 
@@ -100,10 +87,7 @@ const MessageBox = () => {
                 {messageHistory.map((msg, index) => (
                   <div key={index} style={{ marginBottom: '30px' }}>
                     <div style={{ position: 'relative', marginLeft: '20px' }}>
-                      {isLoading && (<div style={{ marginTop: '10px' }}>
-                        <CircularProgress /> {/* Or any other loading indicator */}
-                      </div>
-                      )}
+                     
                       {msg.sender === 'user' ? (<>
                         <PersonIcon style={{ position: 'absolute', left: '-25px', top: '-20px' }} />
                         <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>User</div></>) : (
@@ -112,19 +96,15 @@ const MessageBox = () => {
                           <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>Assistant</div>
                         </>
                       )}
-                      {msg.sender === 'assistant' ? (
-                        <Typewriter
-                          options={{
-                            delay: 30,
-                            cursor: "",
-                          }}
-                          onInit={(typewriter) => {
-                            typewriter.typeString(msg.text).start();
-                          }}
-                        />
-                      ) : (
-                        <div>{msg.text}</div>
-                      )}
+            {msg.sender === 'assistant' ? (
+           
+       <div>    {msg.isLoading && (<div style={{ marginTop: '10px' }}>
+               <CircularProgress /> {/* Or any other loading indicator */}
+             </div>
+             )}{msg.text}</div>
+      ) : (
+        <div>{msg.text}</div>
+      )}
                     </div>
                   </div>
                 ))}
