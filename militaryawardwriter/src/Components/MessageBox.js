@@ -146,88 +146,74 @@ const MessageBox = () => {
     };
     return (
       <>
-      <Grid style={{ height: '90vh', marginTop:'10vh'}}>
-        <Grid container sx={{overflowY:'scroll',  maxHeight:'70%' }}>
-
+      <div style={{ paddingTop: '5rem', paddingBottom: '10rem' }}> {/* Adjust paddingBottom to match the height of the input box */}
+        {/* Grid for messageHistory */}
+        <Grid container>
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
-
-          <Grid item xs={12} sm={4} md={4} lg={6} > {/* Expanded to span columns 4-8 */}
-
-          <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', textAlign: 'left', maxWidth: '100%', minHeight: 0 }}>
-              <div id="messageHistory">
-                {messageHistory.map((msg, index) => (
-                  <div key={index} style={{ marginBottom: '30px' }}>
-                    <div style={{ position: 'relative', marginLeft: '20px' }}>
-                     
-                      {msg.sender === 'user' ? (<>
+    
+          <Grid item xs={12} sm={4} md={4} lg={6}> {/* Expanded to span columns 4-8 */}
+            {/* Message History */}
+            <div id="messageHistory">
+              {messageHistory.map((msg, index) => (
+                <div key={index} style={{ marginBottom: '30px' }}>
+                  <div style={{ position: 'relative', marginLeft: '20px' }}>
+                    {msg.sender === 'user' ? (
+                      <>
                         <PersonIcon style={{ position: 'absolute', left: '-25px', top: '-20px' }} />
-                        <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>User</div></>) : (
-                        <>
-                          <AssistIcon />
-                          <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>Assistant</div>
-                        </>
-                      )}
-            {msg.sender === 'assistant' ? (
-           
-       <div>    {msg.isLoading && (<div style={{ marginTop: '10px' }}>
-                 {<BlinkingDot />}{/* Or any other loading indicator */}
-             </div>
-             )}{msg.text} <div ref={messagesEndRef} /></div>
-      ) : (
-        <div>{msg.text} <div ref={messagesEndRef} /></div>
-      )}
-                    </div>
+                        <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>User</div>
+                      </>
+                    ) : (
+                      <>
+                        <AssistIcon />
+                        <div style={{ fontWeight: 'bold', position: 'absolute', left: '0px', top: '-20px', fontSize: '0.8em' }}>Assistant</div>
+                      </>
+                    )}
+                    <div>{msg.text} <div ref={messagesEndRef} /></div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-           
           </Grid>
-          <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 8-12 */}
-        
-        </Grid>
-
-        <Grid container sx={{position:'fixed', bottom:0, marginBottom: '5%',zIndex: 10,backgroundColor:'white'}}>
-          <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
-
-          {/*USER MESSAGE BOX BEGINS */}
-
-          <Grid item xs={12} sm={4} md={4} lg={6}>
-            <ThemeProvider theme={customTheme}>
-              <TextField
-                multiline
-                minrows={2}
-                maxRows={10}
-
-                fullWidth
-                type="text"
-                color="primary"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && sendMessageToLambda()}
-                InputProps={{
-
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={sendMessageToLambda}>
-                        <ArrowCircleUpIcon fontSize="large" sx={{
-                          '&:hover': {
-                            color: 'black', // Change color on hover
-                          },
-                        }} />
-                      </IconButton >
-                    </InputAdornment>
-                  ),
-                }}
-
-                style={{ paddingRight: 0 }} // Adjust the right padding if necessary
-              /> </ThemeProvider>
-          </Grid>
-
+    
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 8-12 */}
         </Grid>
+      </div>
+    
+      {/* Fixed Input Box */}
+      <Grid container style={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 10, backgroundColor: 'white' }}>
+        <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
+    
+        <Grid item xs={12} sm={4} md={4} lg={6} sx={{marginBottom:'1rem'}}>
+          <ThemeProvider theme={customTheme}>
+            <TextField
+              multiline
+              minRows={2}
+              maxRows={10}
+              fullWidth
+              type="text"
+              color="primary"
+              placeholder="..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && sendMessageToLambda()}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={sendMessageToLambda}>
+                      <ArrowCircleUpIcon fontSize="large" sx={{ '&:hover': { color: 'black' } }} />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              style={{ paddingRight: 0 }} // Adjust the right padding if necessary
+            />
+          </ThemeProvider>
         </Grid>
-      </>
+      </Grid>
+    </>
+    
+    
+    
     );
   };
 
