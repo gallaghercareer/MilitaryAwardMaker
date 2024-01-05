@@ -1,4 +1,4 @@
-import React, {useState,useEffect,useContext } from 'react';
+import React, {useState,useEffect,useContext,useRef } from 'react';
 import { AppBar, Toolbar, Button, Stack, Box, ButtonGroup, Grid,MenuItem, Menu} from '@mui/material';
 import Cookies from 'js-cookie';
 import Typography from '@mui/material/Typography';
@@ -6,12 +6,22 @@ import {AccountContext} from '../Context/Account';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import '../Css/Navbar.css';
+import { Account } from 'aws-sdk';
 function Navbar(props) {
+  const navbarRef = useRef(null);
+
+  //const  setNavbarHeight = useContext(AccountContext);
 
   const {logout} = useContext(AccountContext);
   const {login} = useContext(AccountContext);
   const {email} = useContext(AccountContext);
   
+  useEffect(() => {
+    if (navbarRef.current) {
+      //setNavbarHeight(navbarRef.current.clientHeight);
+    }
+  }, []);
+
   const navigate = useNavigate()
 
   const navigateToCoastGuardHomepage = () =>{
@@ -35,7 +45,7 @@ function Navbar(props) {
     setAnchorEl(null);
 };
   return (
-    <AppBar position="sticky" elevation={0} style={{ backgroundColor: 'white' }}>
+    <AppBar ref={navbarRef}position="sticky" elevation={0} style={{ top:0,height: '10vh', backgroundColor: 'white', borderBottom: '1px solid #e0e0e0'  }}>
     <Toolbar>
       <Grid container alignItems="center">
         <Grid item xs={false} sm={2} md={2} lg={2} /> {/* Empty space for columns 1-4 */}
