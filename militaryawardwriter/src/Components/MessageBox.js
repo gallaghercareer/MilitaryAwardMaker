@@ -1,6 +1,5 @@
-import React, {useState,useEffect,useContext} from 'react'
-
-import Typewriter from 'typewriter-effect';
+import React, {useState,useEffect,useContext,useRef} from 'react'
+ 
 import CallApiGateway from '../Services/CallApiGateway';
 import Cookies from 'js-cookie'; // Don't forget to import Cookies
 import { CircularProgress, AppBar, Link, InputAdornment, TextField, IconButton, Toolbar, Button, Stack, Box, ButtonGroup, Grid, MenuItem, Menu, Icon } from '@mui/material';
@@ -28,6 +27,17 @@ const MessageBox = () => {
   const [message, setMessage] = useState('');
   const [newMessage, setNewMessage] = useState('');
 
+  const messagesEndRef = useRef(null);
+
+  const scrollBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+};
+
+
+  useEffect(() => {
+    scrollBottom();
+  }, [messageHistory]);
+  
   
   const addMessageToHistory = (msg) => {
     setMessageHistory((prevHistory) => [...prevHistory, msg]);
@@ -37,6 +47,8 @@ const MessageBox = () => {
     const messageHistoryContainer = document.getElementById('messageHistory');
     messageHistoryContainer.scrollTop = messageHistoryContainer.scrollHeight;
   }, [messageHistory]);
+  
+  
   const sendMessageToLambda = async () => {
 
     const userMessage = { text: message, sender: 'user' };
@@ -73,6 +85,7 @@ const MessageBox = () => {
       });
     };
 
+   
     const fakeAssistantResponse = () => {
       
     const userMessage = { text: message, sender: 'user' };
@@ -98,39 +111,15 @@ const MessageBox = () => {
     };
     return (
       <>
-        <Grid container style={{overflowY: 'auto'}}>
+      <Grid style={{ height: '100vh'}}>
+        <Grid container sx={{overflowY:'clip',  maxHeight:'70%', }}>
 
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
 
           <Grid item xs={12} sm={4} md={4} lg={6} > {/* Expanded to span columns 4-8 */}
 
-            <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', textAlign: 'left', maxWidth: '100%' }}>
+          <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', textAlign: 'left', maxWidth: '100%', minHeight: 0 }}>
               <div id="messageHistory">
-          <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam. Consequat mauris nunc congue nisi. Egestas sed tempus urna et pharetra. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Nam at lectus urna duis convallis. Massa enim nec dui nunc mattis enim ut tellus elementum. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Praesent tristique magna sit amet purus gravida quis blandit. Cras semper auctor neque vitae tempus quam pellentesque. Dictumst quisque sagittis purus sit amet. Vitae turpis massa sed elementum. In egestas erat imperdiet sed. Odio facilisis mauris sit amet massa vitae tortor condimentum lacinia.
-
-Odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Lacinia at quis risus sed vulputate odio ut. Scelerisque fermentum dui faucibus in. Ut placerat orci nulla pellentesque dignissim enim. Aliquam ut porttitor leo a diam sollicitudin tempor id eu. Dolor sit amet consectetur adipiscing elit duis tristique. Sed faucibus turpis in eu mi bibendum neque. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Nunc scelerisque viverra mauris in aliquam sem. Maecenas pharetra convallis posuere morbi leo urna molestie at elementum. Aliquam faucibus purus in massa tempor nec. Aliquet enim tortor at auctor urna nunc id cursus. Proin libero nunc consequat interdum varius sit amet mattis vulputate. Eget sit amet tellus cras adipiscing enim eu turpis. Aliquam etiam erat velit scelerisque in.
-
-Rhoncus urna neque viverra justo nec ultrices dui sapien. Non sodales neque sodales ut. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. In est ante in nibh mauris cursus. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Enim neque volutpat ac tincidunt vitae semper quis. Risus in hendrerit gravida rutrum quisque non tellus. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra. Aliquet eget sit amet tellus cras adipiscing enim. Tristique magna sit amet purus gravida quis. Tristique senectus et netus et. Vitae elementum curabitur vitae nunc sed. Risus feugiat in ante metus dictum at tempor commodo. Fames ac turpis egestas integer eget. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Ligula ullamcorper malesuada proin libero. Pharetra vel turpis nunc eget lorem dolor sed viverra. Amet facilisis magna etiam tempor orci eu lobortis elementum.
-
-In vitae turpis massa sed elementum tempus egestas sed. Libero justo laoreet sit amet cursus sit. Nibh tortor id aliquet lectus. Leo a diam sollicitudin tempor id eu nisl nunc. Odio eu feugiat pretium nibh ipsum. Diam vulputate ut pharetra sit. Morbi tristique senectus et netus et malesuada. Urna condimentum mattis pellentesque id. Eget gravida cum sociis natoque penatibus et. Erat velit scelerisque in dictum non consectetur a. Vitae et leo duis ut diam quam nulla porttitor. Orci phasellus egestas tellus rutrum tellus. Gravida quis blandit turpis cursus in hac.
-
-Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Enim ut tellus elementum sagittis vitae. Commodo ullamcorper a lacus vestibulum. Non pulvinar neque laoreet suspendisse interdum consectetur libero id. Vel risus commodo viverra maecenas accumsan lacus. Vel facilisis volutpat est velit egestas. Eu non diam phasellus vestibulum lorem sed risus. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim. Pretium lectus quam id leo in. Ipsum suspendisse ultrices gravida dictum fusce ut placerat orci. Vulputate mi sit amet mauris commodo quis imperdiet. Nisi est sit amet facilisis magna. Massa sapien faucibus et molestie ac feugiat sed lectus. Ac placerat vestibulum lectus mauris ultrices eros. Cursus metus aliquam eleifend mi in nulla. Velit sed ullamcorper morbi tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam. Consequat mauris nunc congue nisi. Egestas sed tempus urna et pharetra. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Nam at lectus urna duis convallis. Massa enim nec dui nunc mattis enim ut tellus elementum. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Praesent tristique magna sit amet purus gravida quis blandit. Cras semper auctor neque vitae tempus quam pellentesque. Dictumst quisque sagittis purus sit amet. Vitae turpis massa sed elementum. In egestas erat imperdiet sed. Odio facilisis mauris sit amet massa vitae tortor condimentum lacinia.
-
-Odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Lacinia at quis risus sed vulputate odio ut. Scelerisque fermentum dui faucibus in. Ut placerat orci nulla pellentesque dignissim enim. Aliquam ut porttitor leo a diam sollicitudin tempor id eu. Dolor sit amet consectetur adipiscing elit duis tristique. Sed faucibus turpis in eu mi bibendum neque. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Nunc scelerisque viverra mauris in aliquam sem. Maecenas pharetra convallis posuere morbi leo urna molestie at elementum. Aliquam faucibus purus in massa tempor nec. Aliquet enim tortor at auctor urna nunc id cursus. Proin libero nunc consequat interdum varius sit amet mattis vulputate. Eget sit amet tellus cras adipiscing enim eu turpis. Aliquam etiam erat velit scelerisque in.
-
-Rhoncus urna neque viverra justo nec ultrices dui sapien. Non sodales neque sodales ut. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. In est ante in nibh mauris cursus. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Enim neque volutpat ac tincidunt vitae semper quis. Risus in hendrerit gravida rutrum quisque non tellus. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra. Aliquet eget sit amet tellus cras adipiscing enim. Tristique magna sit amet purus gravida quis. Tristique senectus et netus et. Vitae elementum curabitur vitae nunc sed. Risus feugiat in ante metus dictum at tempor commodo. Fames ac turpis egestas integer eget. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Ligula ullamcorper malesuada proin libero. Pharetra vel turpis nunc eget lorem dolor sed viverra. Amet facilisis magna etiam tempor orci eu lobortis elementum.
-
-In vitae turpis massa sed elementum tempus egestas sed. Libero justo laoreet sit amet cursus sit. Nibh tortor id aliquet lectus. Leo a diam sollicitudin tempor id eu nisl nunc. Odio eu feugiat pretium nibh ipsum. Diam vulputate ut pharetra sit. Morbi tristique senectus et netus et malesuada. Urna condimentum mattis pellentesque id. Eget gravida cum sociis natoque penatibus et. Erat velit scelerisque in dictum non consectetur a. Vitae et leo duis ut diam quam nulla porttitor. Orci phasellus egestas tellus rutrum tellus. Gravida quis blandit turpis cursus in hac.
-
-Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Enim ut tellus elementum sagittis vitae. Commodo ullamcorper a lacus vestibulum. Non pulvinar neque laoreet suspendisse interdum consectetur libero id. Vel risus commodo viverra maecenas accumsan lacus. Vel facilisis volutpat est velit egestas. Eu non diam phasellus vestibulum lorem sed risus. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim. Pretium lectus quam id leo in. Ipsum suspendisse ultrices gravida dictum fusce ut placerat orci. Vulputate mi sit amet mauris commodo quis imperdiet. Nisi est sit amet facilisis magna. Massa sapien faucibus et molestie ac feugiat sed lectus. Ac placerat vestibulum lectus mauris ultrices eros. Cursus metus aliquam eleifend mi in nulla. Velit sed ullamcorper morbi tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam. Consequat mauris nunc congue nisi. Egestas sed tempus urna et pharetra. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Nam at lectus urna duis convallis. Massa enim nec dui nunc mattis enim ut tellus elementum. In nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Praesent tristique magna sit amet purus gravida quis blandit. Cras semper auctor neque vitae tempus quam pellentesque. Dictumst quisque sagittis purus sit amet. Vitae turpis massa sed elementum. In egestas erat imperdiet sed. Odio facilisis mauris sit amet massa vitae tortor condimentum lacinia.
-
-Odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Lacinia at quis risus sed vulputate odio ut. Scelerisque fermentum dui faucibus in. Ut placerat orci nulla pellentesque dignissim enim. Aliquam ut porttitor leo a diam sollicitudin tempor id eu. Dolor sit amet consectetur adipiscing elit duis tristique. Sed faucibus turpis in eu mi bibendum neque. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Nunc scelerisque viverra mauris in aliquam sem. Maecenas pharetra convallis posuere morbi leo urna molestie at elementum. Aliquam faucibus purus in massa tempor nec. Aliquet enim tortor at auctor urna nunc id cursus. Proin libero nunc consequat interdum varius sit amet mattis vulputate. Eget sit amet tellus cras adipiscing enim eu turpis. Aliquam etiam erat velit scelerisque in.
-
-Rhoncus urna neque viverra justo nec ultrices dui sapien. Non sodales neque sodales ut. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. In est ante in nibh mauris cursus. Cursus in hac habitasse platea dictumst quisque sagittis purus sit. Enim neque volutpat ac tincidunt vitae semper quis. Risus in hendrerit gravida rutrum quisque non tellus. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra. Aliquet eget sit amet tellus cras adipiscing enim. Tristique magna sit amet purus gravida quis. Tristique senectus et netus et. Vitae elementum curabitur vitae nunc sed. Risus feugiat in ante metus dictum at tempor commodo. Fames ac turpis egestas integer eget. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Ligula ullamcorper malesuada proin libero. Pharetra vel turpis nunc eget lorem dolor sed viverra. Amet facilisis magna etiam tempor orci eu lobortis elementum.
-
-In vitae turpis massa sed elementum tempus egestas sed. Libero justo laoreet sit amet cursus sit. Nibh tortor id aliquet lectus. Leo a diam sollicitudin tempor id eu nisl nunc. Odio eu feugiat pretium nibh ipsum. Diam vulputate ut pharetra sit. Morbi tristique senectus et netus et malesuada. Urna condimentum mattis pellentesque id. Eget gravida cum sociis natoque penatibus et. Erat velit scelerisque in dictum non consectetur a. Vitae et leo duis ut diam quam nulla porttitor. Orci phasellus egestas tellus rutrum tellus. Gravida quis blandit turpis cursus in hac.
-
-Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Enim ut tellus elementum sagittis vitae. Commodo ullamcorper a lacus vestibulum. Non pulvinar neque laoreet suspendisse interdum consectetur libero id. Vel risus commodo viverra maecenas accumsan lacus. Vel facilisis volutpat est velit egestas. Eu non diam phasellus vestibulum lorem sed risus. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim. Pretium lectus quam id leo in. Ipsum suspendisse ultrices gravida dictum fusce ut placerat orci. Vulputate mi sit amet mauris commodo quis imperdiet. Nisi est sit amet facilisis magna. Massa sapien faucibus et molestie ac feugiat sed lectus. Ac placerat vestibulum lectus mauris ultrices eros. Cursus metus aliquam eleifend mi in nulla. Velit sed ullamcorper morbi tincidunt.</div>
                 {messageHistory.map((msg, index) => (
                   <div key={index} style={{ marginBottom: '30px' }}>
                     <div style={{ position: 'relative', marginLeft: '20px' }}>
@@ -148,22 +137,22 @@ Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Enim ut 
        <div>    {msg.isLoading && (<div style={{ marginTop: '10px' }}>
                <CircularProgress /> {/* Or any other loading indicator */}
              </div>
-             )}{msg.text}</div>
+             )}{msg.text} <div ref={messagesEndRef} /></div>
       ) : (
-        <div>{msg.text}</div>
+        <div>{msg.text} <div ref={messagesEndRef} /></div>
       )}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
+           
           </Grid>
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 8-12 */}
-
+        
         </Grid>
 
-        <Grid container sx={{ position: 'sticky', bottom: 0,  marginBottom: '20%' }}>
+        <Grid container sx={{position:'fixed', bottom:0, marginBottom: '5%',zIndex: 10,backgroundColor:'white'}}>
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 1-4 */}
 
           {/*USER MESSAGE BOX BEGINS */}
@@ -180,7 +169,7 @@ Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Enim ut 
                 color="primary"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && sendMessageToLambda()}
+                onKeyPress={(e) => e.key === 'Enter' && fakeAssistantResponse()}
                 InputProps={{
 
                   endAdornment: (
@@ -201,6 +190,7 @@ Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Enim ut 
           </Grid>
 
           <Grid item xs={false} sm={4} md={4} lg={3} /> {/* Empty space for columns 8-12 */}
+        </Grid>
         </Grid>
       </>
     );
