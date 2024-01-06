@@ -33,6 +33,7 @@ const defaultTheme = createTheme();
 export default function NomineeForm() {
 
     const navigate = useNavigate()
+  
     const navigateToAwardWriter = () =>{
         navigate('/chattoopenai')
     }
@@ -50,11 +51,11 @@ export default function NomineeForm() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{paddingTop:'5rem'}}>
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                       
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
