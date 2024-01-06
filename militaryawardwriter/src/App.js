@@ -7,6 +7,7 @@ import ChatToAiPage from './Pages/CoastGuard/ChatToAiPage';
 import Landing from './Pages/Landing';
 import CoastGuardHomePage from './Pages/CoastGuard/CoastGuardHomePage';
 import NomineeInfoFormPage from './Pages/CoastGuard/NomineeInfoFormPage';
+import NavbarCoastGuard from './Components/NavbarCoastGuard';
 function App() {
  
   return (
@@ -14,12 +15,13 @@ function App() {
 
     <Router>
    
-    <Navbar/>
+   
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/coastguard" element={<CoastGuardHomePage />} />
-        <Route path="/nomineeinfo" element={<NomineeInfoFormPage />} />
-        <Route path="/chattoopenai" element={<ChatToAiPage/>} />
+      
+        <Route path="/" element={<><Navbar/><Landing /></>} />
+        <Route path="/coastguard" element={<> <NavbarCoastGuard /> <CoastGuardHomePage /></>} />     
+        <Route path="/nomineeinfo" element={<> <NavbarCoastGuard /> <NomineeInfoFormPage /></>} />
+        <Route path="/chattoopenai" element={<> <NavbarCoastGuard /><ChatToAiPage/> </>} />
 
       </Routes>
   </Router>
