@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import '../Css/Navbar.css';
 import { Account } from 'aws-sdk';
 function Navbar(props) {
-
+//
   
   const navbarRef = useRef(null);
 
