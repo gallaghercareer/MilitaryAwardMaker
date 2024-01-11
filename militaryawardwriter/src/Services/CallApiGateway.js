@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 const CallApiGateway = async (user_message) => {
-    const url = 'https://csitg9jz5c.execute-api.us-east-2.amazonaws.com/beta/sendMessage_AAM';   
+    const url = 'https://csitg9jz5c.execute-api.us-east-2.amazonaws.com/default/sendMessage_AAM';   
     const authorizationToken = Cookies.get('jwt');
     let thread_Id = Cookies.get("thread_Id");
     
@@ -13,7 +13,7 @@ const CallApiGateway = async (user_message) => {
         'Authorization': `Bearer ${authorizationToken}`,
         'Content-Type': 'application/json',          
     };
-    
+    console.log("Authorization header is:" + authorizationToken )
     const messageBody = JSON.stringify({
         thread_id: thread_Id,
         user_message: user_message

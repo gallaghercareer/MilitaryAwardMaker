@@ -40,10 +40,6 @@ const Authorizer = () => {
     }
     
     };
-    /*
-    useEffect(() => {
-    handleCallback();
-    }, []);*/
     
     const requestOptions = {
         method: 'POST',

@@ -21,6 +21,7 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function CoastGuardHomePage() {
+    
     const {getSession, setIsSignedIn,email} = useContext(AccountContext);
     
     const navigate = useNavigate()
@@ -29,15 +30,14 @@ function CoastGuardHomePage() {
     const handleCognitoLoginRedirect = () => {
         const urlParams = new URLSearchParams(window.location.hash.substring(1));
         const idToken = urlParams.get('id_token');
-        const accessToken = urlParams.get('access_token');
-        console.log("The access token:" + accessToken)
-        console.log ("\n\n")
-
+        //const accessToken = urlParams.get('access_token');
+       Cookies.set('jwt', idToken, { expires: 1, path: '/' });
     };
 
     const navigateToNomineeInfo = () =>{
         navigate('/nomineeinfo')
     }
+    
    
 
     useEffect(() => {

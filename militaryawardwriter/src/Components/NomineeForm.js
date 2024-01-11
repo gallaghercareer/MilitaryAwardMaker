@@ -50,41 +50,40 @@ export default function NomineeForm() {
     };
 
     return (
+
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs" sx={{paddingTop:'5rem'}}>
+            <Container component="main" maxWidth="sm" sx={{ paddingTop: '5rem' }}> {/* Adjusted maxWidth to 'sm' */}
                 <CssBaseline />
-                <Box
-                    sx={{
-                       
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Typography component="h1" variant="h5">
                         Award Nominee 
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="name"
-                            label="Nominee Name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="rank"
-                            label="Rank"
-                            id="rank"
-                        />
-                        <TextField
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Nominee Name"
+                                    name="name"
+                                    autoComplete="name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="rank"
+                                    label="Rank"
+                                    id="rank"
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                            <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -92,7 +91,8 @@ export default function NomineeForm() {
                             label="City"
                             id="city"
                             autoComplete="city"
-                        />
+                        /> </Grid>
+                          <Grid item xs={12} md={6}>
                         <TextField
                             margin="normal"
                             required
@@ -101,45 +101,53 @@ export default function NomineeForm() {
                             label="State"
                             id="state"
                             autoComplete="state"
-                        />
+                        /></Grid>
+                          <Grid item xs={12} md={6}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            placeholder='January'
                             name="AwardStartMonth"
                             label="Award Start (Month)"
                             id="AwardStartMonth"
                             autoComplete="AwardStartMonth"
-                        />
+                        /></Grid>
+                          <Grid item xs={12} md={6}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            placeholder='2023'
                             name="AwardStartYear"
                             label="Award Start (Year)"
                             id="AwardStartYear"
                             autoComplete="AwardStartYear"
-                        />
+                        /></Grid>
+                          <Grid item xs={12} md={6}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            placeholder='June'
                             name="AwardEndMonth"
                             label="Award End (Month)"
                             id="AwardEndMonth"
                             autoComplete="AwardEndMonth"
-                        />
+                        /></Grid>
+                          <Grid item xs={12} md={6}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            placeholder='2024'
                             name="AwardEndYear"
                             label="Award End (Year)"
                             id="AwardEndYear"
                             autoComplete="AwardEndYear"
-                        />
+                        /></Grid>
+                        </Grid>
                         
-                     
                         <Button
                             onClick={navigateToAwardWriter}
                             type="submit"
@@ -149,7 +157,6 @@ export default function NomineeForm() {
                         >
                             Next
                         </Button>
-                       
                     </Box>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />

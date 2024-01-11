@@ -6,7 +6,7 @@ const CallLambda = () => {
 
     const callOpenAI = async (event) => {
         event.preventDefault();
-        const url = 'https://csitg9jz5c.execute-api.us-east-2.amazonaws.com/beta/sendMessage_AAM';   
+        const url = 'https://csitg9jz5c.execute-api.us-east-2.amazonaws.com/default/sendMessage_AAM';   
         const authorizationToken = Cookies.get('jwt');
         let thread_Id = Cookies.get("thread_Id")
         

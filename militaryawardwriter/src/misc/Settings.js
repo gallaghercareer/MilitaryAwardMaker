@@ -1,5 +1,5 @@
 import React, {useEffect, useState,useContext} from 'react';
-import Authorizer from '../Context/Authorizer';
+import Authorizer from './Authorizer';
 import { AccountContext } from '../Components/Account';
 
 const Settings = () => {
