@@ -1,9 +1,7 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      nodejs: 20
+  pre_build:
     commands:
       - echo Installing dependencies...
       - npm install
@@ -14,8 +12,5 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'build' # Only include the build directory
-
-cache:
-  paths:
-    - 'node_modules/**/*'
+  discard-paths: no
+  base-directory: build
