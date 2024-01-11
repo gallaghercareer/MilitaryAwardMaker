@@ -10,7 +10,7 @@ const LoginHostedUI = () => {
     const redirectToCognitoHostedUI = () => {
         const domainUrl = "https://militaryawardwriter.auth.us-east-2.amazoncognito.com";
         const appClientId = "2ftpqjvak8l9j8bep63udhr15u";
-        const callbackUrl = encodeURIComponent("http://localhost:3000");
+        const callbackUrl = encodeURIComponent("https://www.militaryawardwriter.com");
         const responseType = "token"; // or "code" for Authorization Code grant
         const scopes = ""; // Add other scopes as needed
 
