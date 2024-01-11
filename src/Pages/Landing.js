@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom'; // Correct import for useNavigate
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { CircularProgress, AppBar, Link, InputAdornment, TextField, IconButton, Toolbar, Button, Stack, Box, ButtonGroup,  MenuItem, Menu, Icon } from '@mui/material';
-
+import Cookies from 'js-cookie';
 function Landing() {
    
     const navigate = useNavigate();
