@@ -12,6 +12,18 @@ function Landing() {
         navigate('/coastguard');
     };
     
+    
+    const handleCognitoLoginRedirect = () => {
+        const urlParams = new URLSearchParams(window.location.hash.substring(1));
+        const idToken = urlParams.get('id_token');
+        //const accessToken = urlParams.get('access_token');
+       Cookies.set('jwt', idToken, { expires: 1, path: '/' });
+    };
+    
+    useEffect(() => {
+        handleCognitoLoginRedirect();
+        
+    }, []);
     return (
         <>
         <Grid container sx={{paddingTop:'5rem'}}>

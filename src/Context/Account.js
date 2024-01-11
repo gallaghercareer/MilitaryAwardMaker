@@ -28,7 +28,7 @@ const Account = (props) => {
     const logout = () => {
         const domainUrl = "https://militaryawardwriter.auth.us-east-2.amazoncognito.com";
         const appClientId = "2ftpqjvak8l9j8bep63udhr15u";
-        const callbackUrl = "https://www.militaryawardwriter.com/coastguard";
+        const callbackUrl = "https://www.militaryawardwriter.com";
         const responseType = "token"; // or "code" for Authorization Code grant
         //const scopes = "openid email phone"; // Add other scopes as needed
         const scopes = ""
@@ -41,7 +41,7 @@ const Account = (props) => {
     const login = () =>{
             const domainUrl = "https://militaryawardwriter.auth.us-east-2.amazoncognito.com";
             const appClientId = "2ftpqjvak8l9j8bep63udhr15u";
-            const callbackUrl = encodeURIComponent("https://www.militaryawardwriter.com/coastguard");
+            const callbackUrl = encodeURIComponent("https://www.militaryawardwriter.com");
             const responseType = "token"; // or "code" for Authorization Code grant
             //const scopes = "openid email phone"; // Add other scopes as needed
             const scopes = ""
