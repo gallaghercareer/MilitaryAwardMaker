@@ -9,7 +9,7 @@ import CoastGuardHomePage from './Pages/CoastGuard/CoastGuardHomePage';
 import NomineeInfoFormPage from './Pages/CoastGuard/NomineeInfoFormPage';
 import NavbarCoastGuard from './Components/NavbarCoastGuard';
 function App() {
- 
+ //
   return (
     <Account>
 
