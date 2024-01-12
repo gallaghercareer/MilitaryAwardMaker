@@ -1,3 +1,8 @@
+#NOTES:
+#Must delete contents of S3 bucket if you want to delete the bucket
+#The DNS itself is manually set up (the records are generated in the cloudformation stack)
+#If new, the pipeline must be started to seed the S3 bucket
+
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
