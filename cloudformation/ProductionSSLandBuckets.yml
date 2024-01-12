@@ -7,11 +7,14 @@ Parameters:
     Default: "militaryawardwriter.com"
   HostedZoneId:
     Type: String
+    Default: "Z057381329QIYL3F9NOJS"
     Description: "The ID of the hosted zone in Route 53"
 
 Resources:
-#create SSL Certificate
- MyCertificate:
+  #create SSL Certificate
+Resources:
+  # Certificate for the root domain
+  RootDomainCertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: !Ref RootDomainName
@@ -19,11 +22,22 @@ Resources:
       DomainValidationOptions:
         - DomainName: !Ref RootDomainName
           HostedZoneId: !Ref HostedZoneId
-      SubjectAlternativeNames:
-        - !Sub www.${RootDomainName}
       Tags:
         - Key: Name
-          Value: MyCertificate
+          Value: RootDomainCertificate
+
+  # Certificate for the www subdomain
+  WWWDomainCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Sub www.${RootDomainName}
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: !Sub www.${RootDomainName}
+          HostedZoneId: !Ref HostedZoneId
+      Tags:
+        - Key: Name
+          Value: WWWDomainCertificate
 
 #create s3 bucket output bucket name
   RootBucket:
