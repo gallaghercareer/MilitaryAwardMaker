@@ -121,7 +121,7 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: !Sub ${RootDomainName}.s3-website-us-east-1.amazonaws.com
+          - DomainName: !Sub www.${RootDomainName}.s3-website-us-east-1.amazonaws.com
             Id: S3WebsiteOrigin
             CustomOriginConfig:
               HTTPPort: 80
