@@ -1,0 +1,11 @@
+#General Format:
+aws cloudformation create-stack --stack-name [YourStackName] --template-body file://[PathToYourYAMLFile] --parameters ParameterKey=[ParameterKey],ParameterValue=[ParameterValue] --capabilities CAPABILITY_IAM
+
+#CREATE Cloudformation Stack
+aws cloudformation create-stack --stack-name DeployWebsite --template-body file://C:\GitHub\MilitaryAwardMaker\cloudformation\ProductionWebsiteDeployment.yml 
+
+#SET AWS REGION
+aws configure set region us-east-1
+
+#DELETE STACK:
+aws cloudformation delete-stack --stack-name DeployWebsite
