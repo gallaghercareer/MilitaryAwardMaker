@@ -53,12 +53,12 @@ Resources:
           ErrorDocument: error.html
     UpdateReplacePolicy: Retain
 
-#create S3 bucket policy
-  BucketPolicy:
+ # Create S3 bucket policy for root domain
+  RootBucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
       PolicyDocument:
-        Id: MyPolicy
+        Id: MyRootPolicy
         Version: "2012-10-17"
         Statement:
           - Sid: PublicReadForGetBucketObjects
@@ -72,11 +72,12 @@ Resources:
                 - /*
       Bucket: !Ref RootBucket
 
+  # Create S3 bucket policy for www subdomain
   WWWBucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
     Properties:
       PolicyDocument:
-        Id: MyPolicy2
+        Id: MyWWWPolicy
         Version: "2012-10-17"
         Statement:
           - Sid: PublicReadForGetBucketObjects
