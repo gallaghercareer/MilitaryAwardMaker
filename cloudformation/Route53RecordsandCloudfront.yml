@@ -6,22 +6,26 @@ Parameters:
   RootDomainName:
     Type: String
     Default: "militaryawardwriter.com"
+  HostedZoneId:
+    Type: String
+    Default: "Z057381329QIYL3F9NOJS"
+    Description: "The ID of the hosted zone in Route 53"
 
   # DNS Records in Route 53
   DNSRecordRoot:
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneId: "Z057381329QIYL3F9NOJS"
+      HostedZoneId: !Ref HostedZoneId
       Name: !Ref RootDomainName
       Type: A
       AliasTarget:
-        HostedZoneId: Z2FDTNDATAQYW2 # CloudFront Hosted Zone ID
+        HostedZoneId: !Ref HostedZoneId # CloudFront Hosted Zone ID
         DNSName: !GetAtt CloudFrontDistribution.DomainName
 
   DNSRecordWWW:
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneId: "Z057381329QIYL3F9NOJS"
+      HostedZoneId: !Ref HostedZoneId
       Name: !Sub www.${RootDomainName}
       Type: A
       AliasTarget:
