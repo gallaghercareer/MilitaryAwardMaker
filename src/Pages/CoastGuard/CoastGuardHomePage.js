@@ -41,8 +41,9 @@ function CoastGuardHomePage() {
    
 
     useEffect(() => {
+      if (Cookies.get('jwt') == null || "undefined"){
         handleCognitoLoginRedirect();
-        
+      }
     }, []);
  
     //The coastguard homepage will contain the letter types
