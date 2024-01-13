@@ -27,12 +27,7 @@ function CoastGuardHomePage() {
     const navigate = useNavigate()
    
     
-    const handleCognitoLoginRedirect = () => {
-        const urlParams = new URLSearchParams(window.location.hash.substring(1));
-        const idToken = urlParams.get('id_token');
-        //const accessToken = urlParams.get('access_token');
-       Cookies.set('jwt', idToken, { expires: 1, path: '/' });
-    };
+
 
     const navigateToNomineeInfo = () =>{
         navigate('/nomineeinfo')
@@ -40,11 +35,7 @@ function CoastGuardHomePage() {
     
    
 
-    useEffect(() => {
-      if (Cookies.get('jwt') == null || "undefined"){
-        handleCognitoLoginRedirect();
-      }
-    }, []);
+    
  
     //The coastguard homepage will contain the letter types
     const cards = [1];
